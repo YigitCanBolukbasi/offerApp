@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import Button from "@mui/material/Button";
 import { getOffer } from "./Redux/actions/offerActions";
 import { connect } from "react-redux";
+import NavBar from "./Components/NavBar";
+import TabPanel from "./Components/Tab";
 
 function App(props) {
   useEffect(() => {
     getOffer();
-    console.log("we are in");
   }, []);
-  console.log(props);
+  const offerOne = props.offerList.offerList.offerList;
+
   return (
     <div className="App">
-      <Button variant="contained">Hello World</Button>
+      <NavBar />
+      <TabPanel offer={offerOne} />
     </div>
   );
 }
