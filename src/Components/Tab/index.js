@@ -7,8 +7,9 @@ import Box from "@mui/material/Box";
 import Card from "../OfferCard";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { getOfferTwo } from "../../Redux/actions/offerActions";
+import { getOfferTwo, getOffer } from "../../Redux/actions/offerActions";
 import { useDispatch, useSelector } from "react-redux";
+import { DELETE_OFFER } from "../../Redux/type";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,12 +50,18 @@ export default function BasicTabs({ offer }) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    if (newValue === 0) {
+      dispatch({
+        type: DELETE_OFFER,
+      });
+      dispatch(getOffer());
+    } else if (newValue === 1) {
+      dispatch({
+        type: DELETE_OFFER,
+      });
+      dispatch(getOfferTwo());
+    }
   };
-
-  if (value === 1) {
-    dispatch(getOfferTwo());
-  }
-  console.log(value);
 
   const {
     offerList: { offerList: offerTwo },

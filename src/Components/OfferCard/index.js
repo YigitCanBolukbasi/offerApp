@@ -4,7 +4,6 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
 function Card({ offerOne }) {
-  console.log(offerOne);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <div

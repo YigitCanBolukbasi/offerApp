@@ -1,2 +1,5 @@
-export const GET_OFFER = "GET_OFFER";
-export const OFFER_ERROR = "OFFER_ERROR";
+export const GET_CASEONE_OFFER = "GET_CASEONE_OFFER";
+export const CASEONE_ERROR = "CASEONE_ERROR";
+export const GET_CASETWO_OFFER = "GET_CASETWO_OFFER";
+export const CASETWO_ERROR = "CASETWO_ERROR";
+export const DELETE_OFFER = "DELETE_OFFER";
