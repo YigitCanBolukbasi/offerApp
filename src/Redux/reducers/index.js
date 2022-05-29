@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import offerReducer from "./offerReducer";
 
 const reducer = combineReducers({
-  offerList: offerReducer,
+  offerLists: offerReducer,
 });
 
 export default reducer;

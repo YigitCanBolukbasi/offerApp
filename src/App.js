@@ -6,19 +6,10 @@ import NavBar from "./Components/NavBar";
 import TabPanel from "./Components/Tab";
 
 function App() {
-  const {
-    offerList: { offerList: offerOne },
-  } = useSelector((state) => state.offerList);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getOffer());
-  }, []);
-
   return (
     <div className="App">
       <NavBar />
-      <TabPanel offer={offerOne} />
+      <TabPanel />
     </div>
   );
 }

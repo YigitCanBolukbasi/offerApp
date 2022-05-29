@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -48,24 +49,23 @@ export default function BasicTabs({ offer }) {
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
 
+  useEffect(() => {
+    dispatch(getOffer());
+  }, []);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue === 0) {
-      dispatch({
-        type: DELETE_OFFER,
-      });
       dispatch(getOffer());
     } else if (newValue === 1) {
-      dispatch({
-        type: DELETE_OFFER,
-      });
       dispatch(getOfferTwo());
     }
   };
 
   const {
-    offerList: { offerList: offerTwo },
-  } = useSelector((state) => state.offerList);
+    caseOneOfferList: { offerList: caseOneOfferList },
+    caseTwoOfferList: { offerList: caseTwoOfferList },
+  } = useSelector((state) => state.offerLists);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -81,11 +81,12 @@ export default function BasicTabs({ offer }) {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        {offer && offer.map((item) => <Card offerOne={item} />)}
+        {caseOneOfferList &&
+          caseOneOfferList.map((item) => <Card offerOne={item} />)}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {offerTwo ? (
-          offerTwo.map((item) => <Card offerOne={item} />)
+        {caseTwoOfferList ? (
+          caseTwoOfferList.map((item) => <Card offerOne={item} />)
         ) : (
           <CircularProgress />
         )}
