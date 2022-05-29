@@ -3,6 +3,8 @@ import {
   CASEONE_ERROR,
   GET_CASETWO_OFFER,
   CASETWO_ERROR,
+  GET_CASETHREE_OFFER,
+  CASETHREE_ERROR,
 } from "../type";
 import axios from "axios";
 
@@ -30,6 +32,20 @@ export const getOfferTwo = () => async (dispatch) => {
   } catch (e) {
     dispatch({
       type: CASETWO_ERROR,
+      payload: console.log(e),
+    });
+  }
+};
+export const getOfferThree = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`https://snetmyapp.herokuapp.com/case3`);
+    dispatch({
+      type: GET_CASETHREE_OFFER,
+      payload: res.data,
+    });
+  } catch (e) {
+    dispatch({
+      type: CASETHREE_ERROR,
       payload: console.log(e),
     });
   }

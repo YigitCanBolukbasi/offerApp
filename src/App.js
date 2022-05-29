@@ -15,22 +15,3 @@ function App() {
 }
 
 export default App;
-
-/* function App(props) {
-  useEffect(() => {
-    getOffer();
-  }, []);
-  const offerOne = props.offerList.offerList.offerList;
-
-  return (
-    <div className="App">
-      <NavBar />
-      <TabPanel offer={offerOne} />
-    </div>
-  );
-}
-const mapStateToProps = (state) => {
-  return { offerList: state.offerList };
-};
-
-export default connect(mapStateToProps, getOffer)(App); */

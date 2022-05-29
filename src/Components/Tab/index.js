@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -8,7 +8,11 @@ import Box from "@mui/material/Box";
 import Card from "../OfferCard";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { getOfferTwo, getOffer } from "../../Redux/actions/offerActions";
+import {
+  getOfferTwo,
+  getOffer,
+  getOfferThree,
+} from "../../Redux/actions/offerActions";
 import { useDispatch, useSelector } from "react-redux";
 import { DELETE_OFFER } from "../../Redux/type";
 
@@ -48,6 +52,7 @@ function a11yProps(index) {
 export default function BasicTabs({ offer }) {
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
+  const [caseThreeOfferList, setCaseThreeOfferList] = useState([]);
 
   useEffect(() => {
     dispatch(getOffer());
@@ -59,6 +64,12 @@ export default function BasicTabs({ offer }) {
       dispatch(getOffer());
     } else if (newValue === 1) {
       dispatch(getOfferTwo());
+    } else if (newValue === 2) {
+      var times = 3;
+
+      for (var i = 0; i < times; i++) {
+        dispatch(getOfferThree());
+      }
     }
   };
 
@@ -66,6 +77,14 @@ export default function BasicTabs({ offer }) {
     caseOneOfferList: { offerList: caseOneOfferList },
     caseTwoOfferList: { offerList: caseTwoOfferList },
   } = useSelector((state) => state.offerLists);
+
+  const { caseThreeOffer } = useSelector((state) => state.offerLists);
+
+  useEffect(() => {
+    if (Object.keys(caseThreeOffer).length !== 0) {
+      setCaseThreeOfferList([...caseThreeOfferList, caseThreeOffer]);
+    }
+  }, [caseThreeOffer]);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -92,7 +111,11 @@ export default function BasicTabs({ offer }) {
         )}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        {caseThreeOfferList ? (
+          caseThreeOfferList.map((item) => <Card offerOne={item} />)
+        ) : (
+          <CircularProgress />
+        )}
       </TabPanel>
     </Box>
   );
