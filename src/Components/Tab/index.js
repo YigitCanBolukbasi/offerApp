@@ -84,12 +84,6 @@ export default function BasicTabs({ offer }) {
 
   const { caseThreeOfferList } = useSelector((state) => state.offerLists);
 
-  const handleCaseThreeOffer = () => {
-    caseThreeOfferList.map((item) => {
-      return <Card offerOne={item} />;
-    });
-  };
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue === 0) {
@@ -106,9 +100,13 @@ export default function BasicTabs({ offer }) {
       dispatch({
         type: DELETE_CASE_THREE_OFFER_LİST,
       });
-
       sendGetOfferCount();
     }
+  };
+  const handleCaseThreeOffer = () => {
+    return caseThreeOfferList.map((item) => {
+      return <Card offerOne={item} />;
+    });
   };
 
   return (
@@ -119,16 +117,18 @@ export default function BasicTabs({ offer }) {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Offer One" {...a11yProps(0)} />
-          <Tab label="Offer Two" {...a11yProps(1)} />
-          <Tab label="Offer Three" {...a11yProps(2)} />
+          <Tab label="case 1" {...a11yProps(0)} />
+          <Tab label="case 2" {...a11yProps(1)} />
+          <Tab label="case 3" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
+        <p> {caseOneOfferList?.length} Sonuç Bulundu!</p>
         {caseOneOfferList &&
           caseOneOfferList.map((item) => <Card offerOne={item} />)}
       </TabPanel>
       <TabPanel value={value} index={1}>
+        <p> {caseTwoOfferList?.length} Sonuç Bulundu!</p>
         {caseTwoOfferList ? (
           caseTwoOfferList.map((item) => <Card offerOne={item} />)
         ) : (
@@ -136,11 +136,9 @@ export default function BasicTabs({ offer }) {
         )}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {caseThreeOfferList ? (
-          caseThreeOfferList.map((item) => <Card offerOne={item} />)
-        ) : (
-          <CircularProgress />
-        )}
+        <p>{totalOfferCount?.num_offers} Sonuç Bulundu!</p>
+        {caseThreeOfferList && handleCaseThreeOffer()}
+        {caseThreeOfferList?.length < totalOfferCount?.num_offers && <Card />}
       </TabPanel>
     </Box>
   );

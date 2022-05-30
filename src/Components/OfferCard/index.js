@@ -8,7 +8,18 @@ function Card({ offerOne }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <div
-        style={{ border: "solid", margin: 10, borderRadius: 5, padding: 10 }}
+        style={
+          offerOne
+            ? { border: "solid", margin: 10, borderRadius: 5, padding: 10 }
+            : {
+                border: "solid",
+                margin: 10,
+                borderRadius: 5,
+                padding: 10,
+                width: 1350,
+                height: 130,
+              }
+        }
       >
         {offerOne ? (
           <Grid container spacing={0}>
