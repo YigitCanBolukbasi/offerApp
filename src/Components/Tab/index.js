@@ -64,11 +64,8 @@ export default function BasicTabs({ offer }) {
       const resp = await axios.get(
         "https://snetmyapp.herokuapp.com/get_offer_count"
       );
-      console.log(resp.data);
       const Count = resp.data.num_offers;
       setTotalOfferCount(resp.data);
-      console.log("count", Count);
-      console.log("totaloffercount", totalOfferCount);
       for (let i = 0; i < Count; i++) {
         dispatch(getOfferThree());
       }
@@ -104,6 +101,7 @@ export default function BasicTabs({ offer }) {
     }
   };
   const handleCaseThreeOffer = () => {
+    caseThreeOfferList.sort((a, b) => parseFloat(a.Cash) - parseFloat(b.Cash));
     return caseThreeOfferList.map((item) => {
       return <Card offerOne={item} />;
     });
@@ -123,12 +121,12 @@ export default function BasicTabs({ offer }) {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <p> {caseOneOfferList?.length} Sonuç Bulundu!</p>
+        {caseOneOfferList && `${caseOneOfferList.length} Sonuç Bulundu`}
         {caseOneOfferList &&
           caseOneOfferList.map((item) => <Card offerOne={item} />)}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <p> {caseTwoOfferList?.length} Sonuç Bulundu!</p>
+        {caseTwoOfferList && `${caseTwoOfferList.length} Sonuç Bulundu`}
         {caseTwoOfferList ? (
           caseTwoOfferList.map((item) => <Card offerOne={item} />)
         ) : (
@@ -136,7 +134,8 @@ export default function BasicTabs({ offer }) {
         )}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <p>{totalOfferCount?.num_offers} Sonuç Bulundu!</p>
+        {totalOfferCount?.num_offers &&
+          `${totalOfferCount.num_offers} Sonuç Bulundu`}
         {caseThreeOfferList && handleCaseThreeOffer()}
         {caseThreeOfferList?.length < totalOfferCount?.num_offers && <Card />}
       </TabPanel>

@@ -16,8 +16,11 @@ function Card({ offerOne }) {
                 margin: 10,
                 borderRadius: 5,
                 padding: 10,
-                width: 1350,
+                width: "97%",
                 height: 130,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }
         }
       >
@@ -25,6 +28,10 @@ function Card({ offerOne }) {
           <Grid container spacing={0}>
             <Grid
               md={2}
+              xs={6}
+              sm={4}
+              lg={3}
+              xl={3}
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -35,6 +42,10 @@ function Card({ offerOne }) {
             </Grid>
             <Grid
               md={8}
+              xs={6}
+              sm={5}
+              lg={6}
+              xl={6}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -49,6 +60,10 @@ function Card({ offerOne }) {
             </Grid>
             <Grid
               md={2}
+              xs={8}
+              sm={3}
+              lg={3}
+              xl={3}
               style={{
                 display: "flex",
                 flexDirection: "column",
