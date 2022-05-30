@@ -2,14 +2,14 @@
 import {
   GET_CASEONE_OFFER,
   GET_CASETWO_OFFER,
-  CASETHREE_ERROR,
   GET_CASETHREE_OFFER,
+  DELETE_OFFER,
 } from "../type";
 
 const initialState = {
   caseOneOfferList: [],
   caseTwoOfferList: [],
-  caseThreeOffer: {},
+  caseThreeOffer: [],
   loading: true,
 };
 
@@ -30,8 +30,15 @@ export default function (state = initialState, action) {
     case GET_CASETHREE_OFFER:
       return {
         ...state,
-        caseThreeOffer: action.payload,
+        caseThreeOffer: [...state.caseThreeOffer, action.payload],
         loading: false,
+      };
+    case DELETE_OFFER:
+      return {
+        caseOneOfferList: [],
+        caseTwoOfferList: [],
+        caseThreeOffer: [],
+        loading: true,
       };
 
     default:

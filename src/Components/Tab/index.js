@@ -52,7 +52,6 @@ function a11yProps(index) {
 export default function BasicTabs({ offer }) {
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
-  const [caseThreeOfferList, setCaseThreeOfferList] = useState([]);
 
   useEffect(() => {
     dispatch(getOffer());
@@ -61,12 +60,20 @@ export default function BasicTabs({ offer }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue === 0) {
+      dispatch({
+        type: DELETE_OFFER,
+      });
       dispatch(getOffer());
     } else if (newValue === 1) {
+      dispatch({
+        type: DELETE_OFFER,
+      });
       dispatch(getOfferTwo());
     } else if (newValue === 2) {
+      dispatch({
+        type: DELETE_OFFER,
+      });
       var times = 3;
-
       for (var i = 0; i < times; i++) {
         dispatch(getOfferThree());
       }
@@ -79,12 +86,7 @@ export default function BasicTabs({ offer }) {
   } = useSelector((state) => state.offerLists);
 
   const { caseThreeOffer } = useSelector((state) => state.offerLists);
-
-  useEffect(() => {
-    if (Object.keys(caseThreeOffer).length !== 0) {
-      setCaseThreeOfferList([...caseThreeOfferList, caseThreeOffer]);
-    }
-  }, [caseThreeOffer]);
+  console.log(caseThreeOffer);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -111,8 +113,8 @@ export default function BasicTabs({ offer }) {
         )}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {caseThreeOfferList ? (
-          caseThreeOfferList.map((item) => <Card offerOne={item} />)
+        {caseThreeOffer ? (
+          caseThreeOffer.map((item) => <Card offerOne={item} />)
         ) : (
           <CircularProgress />
         )}
