@@ -59,12 +59,36 @@ export default function BasicTabs({ offer }) {
     dispatch(getOffer());
   }, []);
 
+  const sendGetOfferCount = async () => {
+    try {
+      const resp = await axios.get(
+        "https://snetmyapp.herokuapp.com/get_offer_count"
+      );
+      console.log(resp.data);
+      const Count = resp.data.num_offers;
+      setTotalOfferCount(resp.data);
+      console.log("count", Count);
+      console.log("totaloffercount", totalOfferCount);
+      for (let i = 0; i < Count; i++) {
+        dispatch(getOfferThree());
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const {
     caseOneOfferList: { offerList: caseOneOfferList },
     caseTwoOfferList: { offerList: caseTwoOfferList },
   } = useSelector((state) => state.offerLists);
 
   const { caseThreeOfferList } = useSelector((state) => state.offerLists);
+
+  const handleCaseThreeOffer = () => {
+    caseThreeOfferList.map((item) => {
+      return <Card offerOne={item} />;
+    });
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -82,15 +106,8 @@ export default function BasicTabs({ offer }) {
       dispatch({
         type: DELETE_CASE_THREE_OFFER_LİST,
       });
-      axios
-        .get(`https://snetmyapp.herokuapp.com/get_offer_count`)
-        .then(function (res) {
-          setTotalOfferCount(res.data.num_offers);
-          console.log("total", totalOfferCount);
-          for (var i = 0; i < totalOfferCount; i++) {
-            dispatch(getOfferThree());
-          }
-        });
+
+      sendGetOfferCount();
     }
   };
 

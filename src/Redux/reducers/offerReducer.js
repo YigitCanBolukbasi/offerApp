@@ -31,13 +31,13 @@ export default function (state = initialState, action) {
     case GET_CASE_THREE_OFFER_LİST:
       return {
         ...state,
-        caseThreeOfferList: [...state.caseThreeOffer, action.payload],
+        caseThreeOfferList: [...state.caseThreeOfferList, action.payload],
         loading: false,
       };
     case DELETE_CASE_THREE_OFFER_LİST:
       return {
         ...state,
-        caseThreeOffer: [],
+        caseThreeOfferList: [],
         loading: true,
       };
     default:
