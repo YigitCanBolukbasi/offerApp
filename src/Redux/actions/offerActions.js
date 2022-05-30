@@ -1,10 +1,10 @@
 import {
-  GET_CASEONE_OFFER,
-  CASEONE_ERROR,
-  GET_CASETWO_OFFER,
-  CASETWO_ERROR,
-  GET_CASETHREE_OFFER,
-  CASETHREE_ERROR,
+  GET_CASE_ONE_OFFER_LİST,
+  GET_CASE_TWO_OFFER_LİST,
+  GET_CASE_THREE_OFFER_LİST,
+  CASE_ONE_ERROR,
+  CASE_TWO_ERROR,
+  CASE_THREE_ERROR,
 } from "../type";
 import axios from "axios";
 
@@ -12,12 +12,12 @@ export const getOffer = () => async (dispatch) => {
   try {
     const res = await axios.get(`https://snetmyapp.herokuapp.com/case1`);
     dispatch({
-      type: GET_CASEONE_OFFER,
+      type: GET_CASE_ONE_OFFER_LİST,
       payload: res.data,
     });
   } catch (e) {
     dispatch({
-      type: CASEONE_ERROR,
+      type: CASE_ONE_ERROR,
       payload: console.log(e),
     });
   }
@@ -26,12 +26,12 @@ export const getOfferTwo = () => async (dispatch) => {
   try {
     const res = await axios.get(`https://snetmyapp.herokuapp.com/case2`);
     dispatch({
-      type: GET_CASETWO_OFFER,
+      type: GET_CASE_TWO_OFFER_LİST,
       payload: res.data,
     });
   } catch (e) {
     dispatch({
-      type: CASETWO_ERROR,
+      type: CASE_TWO_ERROR,
       payload: console.log(e),
     });
   }
@@ -40,12 +40,12 @@ export const getOfferThree = () => async (dispatch) => {
   try {
     const res = await axios.get(`https://snetmyapp.herokuapp.com/case3`);
     dispatch({
-      type: GET_CASETHREE_OFFER,
+      type: GET_CASE_THREE_OFFER_LİST,
       payload: res.data,
     });
   } catch (e) {
     dispatch({
-      type: CASETHREE_ERROR,
+      type: CASE_THREE_ERROR,
       payload: console.log(e),
     });
   }

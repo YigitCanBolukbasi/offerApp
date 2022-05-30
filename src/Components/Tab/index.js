@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Card from "../OfferCard";
 import CircularProgress from "@mui/material/CircularProgress";
+import axios from "axios";
 
 import {
   getOfferTwo,
@@ -14,7 +15,7 @@ import {
   getOfferThree,
 } from "../../Redux/actions/offerActions";
 import { useDispatch, useSelector } from "react-redux";
-import { DELETE_OFFER } from "../../Redux/type";
+import { DELETE_CASE_THREE_OFFER_LİST } from "../../Redux/type";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,41 +53,46 @@ function a11yProps(index) {
 export default function BasicTabs({ offer }) {
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
+  const [totalOfferCount, setTotalOfferCount] = React.useState();
 
   useEffect(() => {
     dispatch(getOffer());
   }, []);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    if (newValue === 0) {
-      dispatch({
-        type: DELETE_OFFER,
-      });
-      dispatch(getOffer());
-    } else if (newValue === 1) {
-      dispatch({
-        type: DELETE_OFFER,
-      });
-      dispatch(getOfferTwo());
-    } else if (newValue === 2) {
-      dispatch({
-        type: DELETE_OFFER,
-      });
-      var times = 3;
-      for (var i = 0; i < times; i++) {
-        dispatch(getOfferThree());
-      }
-    }
-  };
 
   const {
     caseOneOfferList: { offerList: caseOneOfferList },
     caseTwoOfferList: { offerList: caseTwoOfferList },
   } = useSelector((state) => state.offerLists);
 
-  const { caseThreeOffer } = useSelector((state) => state.offerLists);
-  console.log(caseThreeOffer);
+  const { caseThreeOfferList } = useSelector((state) => state.offerLists);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    if (newValue === 0) {
+      dispatch({
+        type: DELETE_CASE_THREE_OFFER_LİST,
+      });
+      dispatch(getOffer());
+    } else if (newValue === 1) {
+      dispatch({
+        type: DELETE_CASE_THREE_OFFER_LİST,
+      });
+      dispatch(getOfferTwo());
+    } else if (newValue === 2) {
+      dispatch({
+        type: DELETE_CASE_THREE_OFFER_LİST,
+      });
+      axios
+        .get(`https://snetmyapp.herokuapp.com/get_offer_count`)
+        .then(function (res) {
+          setTotalOfferCount(res.data.num_offers);
+          console.log("total", totalOfferCount);
+          for (var i = 0; i < totalOfferCount; i++) {
+            dispatch(getOfferThree());
+          }
+        });
+    }
+  };
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -113,8 +119,8 @@ export default function BasicTabs({ offer }) {
         )}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {caseThreeOffer ? (
-          caseThreeOffer.map((item) => <Card offerOne={item} />)
+        {caseThreeOfferList ? (
+          caseThreeOfferList.map((item) => <Card offerOne={item} />)
         ) : (
           <CircularProgress />
         )}
