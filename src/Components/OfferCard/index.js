@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
+import Typography from "@mui/material/Typography";
 
 function Card({ offerOne }) {
   return (
@@ -52,15 +53,18 @@ function Card({ offerOne }) {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "flex-start",
+                justifyContent: "center",
                 alignItems: "flex-start",
                 borderLeft: "solid",
                 paddingLeft: 30,
-                paddingBottom: 25,
               }}
             >
-              <h5>{offerOne.ProductDesc}</h5>
-              <h3>{offerOne.FirmName}</h3>
+              <Typography variant="caption" display="block" gutterBottom>
+                {offerOne.ProductDesc}
+              </Typography>
+              <Typography variant="h5" gutterBottom component="div">
+                {offerOne.FirmName}
+              </Typography>
             </Grid>
             <Grid
               md={2}
@@ -78,7 +82,9 @@ function Card({ offerOne }) {
             >
               <h3>{offerOne.Cash} TL</h3>
               <Button style={{ width: 100, height: 30 }} variant="contained">
-                Satın Al
+                <Typography variant="button" display="block" gutterBottom>
+                  Satın Al
+                </Typography>
               </Button>
             </Grid>
           </Grid>
