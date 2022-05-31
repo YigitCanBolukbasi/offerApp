@@ -16,8 +16,7 @@ function Card({ offerOne }) {
                 margin: 10,
                 borderRadius: 5,
                 padding: 10,
-                width: "97%",
-                height: 130,
+                height: 140,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -28,7 +27,7 @@ function Card({ offerOne }) {
           <Grid container spacing={0}>
             <Grid
               md={2}
-              xs={6}
+              xs={3}
               sm={4}
               lg={3}
               xl={3}
@@ -38,7 +37,11 @@ function Card({ offerOne }) {
                 alignItems: "center",
               }}
             >
-              <img src={offerOne.ImagePath} alt="photo" />
+              <img
+                style={{ width: "50%" }}
+                src={offerOne.ImagePath}
+                alt="photo"
+              />
             </Grid>
             <Grid
               md={8}
@@ -52,7 +55,8 @@ function Card({ offerOne }) {
                 justifyContent: "flex-start",
                 alignItems: "flex-start",
                 borderLeft: "solid",
-                paddingLeft: 50,
+                paddingLeft: 30,
+                paddingBottom: 25,
               }}
             >
               <h5>{offerOne.ProductDesc}</h5>
@@ -60,7 +64,7 @@ function Card({ offerOne }) {
             </Grid>
             <Grid
               md={2}
-              xs={8}
+              xs={3}
               sm={3}
               lg={3}
               xl={3}
@@ -73,11 +77,17 @@ function Card({ offerOne }) {
               }}
             >
               <h3>{offerOne.Cash} TL</h3>
-              <Button variant="contained">Satın Al</Button>
+              <Button style={{ width: 100, height: 30 }} variant="contained">
+                Satın Al
+              </Button>
             </Grid>
           </Grid>
         ) : (
-          <CircularProgress />
+          <Grid container spacing={0}>
+            <Grid md={12} xs={12} sm={12} lg={12} xl={12}>
+              <CircularProgress />
+            </Grid>
+          </Grid>
         )}
       </div>
     </Box>
